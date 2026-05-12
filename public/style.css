@@ -1,0 +1,240 @@
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+    user-select: none;
+}
+
+canvas {
+    display: block;
+}
+
+/* ============================================
+   HUD GENERAL
+   ============================================ */
+#hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ============================================
+   VELOCÍMETRO (esquina inferior derecha)
+   ============================================ */
+#speedometer {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(40,0,0,0.85));
+    border: 3px solid #fbbf24;
+    border-radius: 20px;
+    padding: 20px 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.speed-value {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+#speed {
+    font-size: 56px;
+    font-weight: bold;
+    color: #fbbf24;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+    font-family: 'Courier New', monospace;
+    min-width: 80px;
+    text-align: right;
+}
+
+.unit {
+    font-size: 16px;
+    color: #888;
+    font-weight: bold;
+}
+
+.speed-bar {
+    width: 200px;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#speedBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #fbbf24, #ef4444);
+    transition: width 0.2s ease;
+    border-radius: 4px;
+}
+
+/* ============================================
+   INFO (esquina superior izquierda)
+   ============================================ */
+#info {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(251, 191, 36, 0.3);
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+#info strong {
+    color: #fbbf24;
+    font-size: 18px;
+}
+
+#fps {
+    color: #22c55e;
+    font-family: 'Courier New', monospace;
+}
+
+/* ============================================
+   MINIMAPA (esquina superior derecha)
+   ============================================ */
+#minimap {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 3px solid #fbbf24;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#minimapCanvas {
+    border-radius: 50%;
+}
+
+.minimap-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fbbf24;
+    color: black;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* ============================================
+   CONTROLES (esquina inferior izquierda)
+   ============================================ */
+#controls {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(251, 191, 36, 0.3);
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+kbd {
+    background: linear-gradient(180deg, #444, #222);
+    color: #fbbf24;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    border: 1px solid #666;
+    box-shadow: 0 2px 0 #111;
+    margin-right: 5px;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* ============================================
+   PANTALLA DE CARGA
+   ============================================ */
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a, #2a0000);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s ease;
+}
+
+#loadingScreen h1 {
+    font-size: 80px;
+    color: #fbbf24;
+    text-shadow: 0 0 30px rgba(251, 191, 36, 0.8);
+    margin-bottom: 20px;
+    letter-spacing: 8px;
+}
+
+#loadingScreen p {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.loader {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -40%; }
+    100% { left: 100%; }
+}
+
+#loadingScreen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
